@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.less'
-import App from './components/App'
+import Search from './components/Search'
 import registerServiceWorker from './registerServiceWorker'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<Search />, document.getElementById('root'))
 registerServiceWorker()
