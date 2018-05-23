@@ -1,17 +1,24 @@
 import React from 'react'
 import SearchFiltersListItem from './SearchFiltersListItem'
 
-function SearchFiltersList (props) {
+function SearchFiltersList ({ filters, updateResults }) {
   return (
     <form className="filters">
-      {_renderFilters(props.filters)}
+      {_renderFilters(filters, updateResults)}
     </form>
   )
 }
 
-function _renderFilters (filters) {
-  return Object.entries(filters).map(([ key, filter ]) => {
-    return <SearchFiltersListItem key={key} data={filter} />
+function _renderFilters (filters, updateResults) {
+  return Object.entries(filters).map(([ filterName, filterData ]) => {
+    return (
+      <SearchFiltersListItem
+        key={filterName}
+        filterName={filterName}
+        filterData={filterData}
+        updateResults={updateResults}
+      />
+    )
   })
 }
 

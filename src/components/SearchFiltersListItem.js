@@ -1,55 +1,35 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import LocationInput from './LocationInput'
+import DropdownFilter from './DropdownFilter'
 
-function SearchFiltersListItem ({ data }) {
-  const {
-    label,
-    options,
-    defaultValue
-  } = data
-
+function SearchFiltersListItem ({ filterName, filterData, updateResults }) {
   return (
     <label className="filter">
-      <h4>{label}</h4>
-      {!options
-        ? <LocationInput defaultValue={defaultValue} />
-        : _renderDropdownFilter(defaultValue, options)}
+      <h4>{filterData.label}</h4>
+      {!filterData.options
+        ? _renderLocationInput(filterName, filterData, updateResults)
+        : _renderDropdownFilter(filterName, filterData, updateResults)}
     </label>
   )
 }
 
-function _renderDropdownFilter (defaultValue, options) {
+function _renderLocationInput (filterName, filterData, updateResults) {
   return (
-    <select className="filter-dropdown" defaultValue={defaultValue}>
-      {options.length
-        ? _renderRequiredFilterOptions(options)
-        : _renderOptionalFilterOptions(options)}
-    </select>
+    <LocationInput
+      filterName={filterName}
+      filterData={filterData}
+      updateResults={updateResults}
+    />
   )
 }
 
-function _renderRequiredFilterOptions (options) {
-  return options.map((option, index) => {
-    return (
-      <option key={index} value={option}>
-        {option}
-      </option>
-    )
-  })
-}
-
-function _renderOptionalFilterOptions (options) {
+function _renderDropdownFilter (filterName, filterData, updateResults) {
   return (
-    <Fragment>
-      <option value="">Any</option>
-      {Object.entries(options).map(([ value, quantity ], index) => {
-        return (
-          <option key={index} value={value}>
-            {`${value} (${quantity})`}
-          </option>
-        )
-      })}
-    </Fragment>
+    <DropdownFilter
+      filterName={filterName}
+      filterData={filterData}
+      updateResults={updateResults}
+    />
   )
 }
 
