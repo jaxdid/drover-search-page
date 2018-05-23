@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { convertValueForApi } from '../../lib/utils'
+import { convertValueForApi, capitalize } from '../../lib/utils'
 
 class DropdownFilter extends Component {
   constructor (props) {
@@ -52,7 +52,7 @@ function _renderVariableOptions (options) {
       {Object.entries(options).map(([ value, quantity ], index) => {
         return (
           <option key={index} value={value}>
-            {`${value} (${quantity})`}
+            {`${capitalize(value)} (${quantity})`}
           </option>
         )
       })}
