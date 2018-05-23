@@ -121,7 +121,7 @@ class Search extends Component {
     return (
       <div className="search">
         <SearchFiltersList filters={this.state.filters} />
-        <SearchResultsList />
+        <SearchResultsList results={this.state.results} />
       </div>
     )
   }
