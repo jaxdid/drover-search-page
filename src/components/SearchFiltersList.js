@@ -4,10 +4,6 @@ import SearchFiltersListItem from './SearchFiltersListItem'
 function SearchFiltersList (props) {
   return (
     <form className="filters">
-      <label className="filter">
-        <h4>Location</h4>
-        <input type="text" />
-      </label>
       {_renderFilters(props.filters)}
     </form>
   )

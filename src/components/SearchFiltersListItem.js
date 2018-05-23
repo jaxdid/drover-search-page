@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
+import LocationInput from './LocationInput'
 
-function SearchFiltersListItem ({ key, data }) {
+function SearchFiltersListItem ({ data }) {
   const {
     label,
     options,
@@ -8,14 +9,22 @@ function SearchFiltersListItem ({ key, data }) {
   } = data
 
   return (
-    <label key={key}>
+    <label className="filter">
       <h4>{label}</h4>
-      <select defaultValue={defaultValue}>
-        {options.length
-          ? _renderRequiredFilterOptions(options)
-          : _renderOptionalFilterOptions(options)}
-      </select>
+      {!options
+        ? <LocationInput defaultValue={defaultValue} />
+        : _renderDropdownFilter(defaultValue, options)}
     </label>
+  )
+}
+
+function _renderDropdownFilter (defaultValue, options) {
+  return (
+    <select className="filter-dropdown" defaultValue={defaultValue}>
+      {options.length
+        ? _renderRequiredFilterOptions(options)
+        : _renderOptionalFilterOptions(options)}
+    </select>
   )
 }
 

@@ -8,6 +8,10 @@ class Search extends Component {
 
     this.state = {
       filters: {
+        location: {
+          label: 'Location',
+          defaultValue: 'London, UK'
+        },
         startDate: {
           label: 'Subscription starts within the next',
           options: [2, 14, 30],
@@ -72,6 +76,10 @@ class Search extends Component {
       .then(resp => resp.json())
       .then(({ metadata, data }) => {
         const filters = {
+          location: {
+            label: 'Location',
+            defaultValue: 'London, UK'
+          },
           startDate: {
             label: 'Subscription starts within the next',
             options: ['2 Days', '14 Days', '30 Days']
