@@ -4,7 +4,8 @@ import SearchResultsList from './SearchResultsList'
 import fetchSearchResults from '../../lib/api'
 import {
   getDefaultQuery,
-  getBaseFilterSettings
+  getBaseFilterSettings,
+  debounce
 } from '../../lib/utils'
 
 class Search extends Component {
@@ -17,7 +18,7 @@ class Search extends Component {
       results: []
     }
 
-    this.updateResults = this.updateResults.bind(this)
+    this.updateResults = debounce(this.updateResults.bind(this), 300)
   }
 
   componentDidMount () {
