@@ -15,7 +15,8 @@ class Search extends Component {
     this.state = {
       query: getDefaultQuery(),
       filters: getBaseFilterSettings(),
-      results: []
+      results: [],
+      resultsTotal: 0
     }
 
     this.updateResults = debounce(this.updateResults.bind(this), 300)
@@ -45,7 +46,8 @@ class Search extends Component {
 
         this.setState({
           filters,
-          results
+          results,
+          resultsTotal: metadata.total_count
         })
       })
   }
@@ -65,7 +67,11 @@ class Search extends Component {
           filters={this.state.filters}
           updateResults={(filter, newValue) => this.updateResults(filter, newValue)}
         />
-        <SearchResultsList results={this.state.results} />
+        <SearchResultsList
+          results={this.state.results}
+          resultsTotal={this.state.resultsTotal}
+          locationSearched={this.state.query.location}
+        />
       </div>
     )
   }
