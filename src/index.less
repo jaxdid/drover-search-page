@@ -38,9 +38,144 @@ body {
     flex-direction: column;
   
     .result {
+      display: flex;
+      flex-direction: row;
+      height: 224px;
       margin-bottom: 15px;
+      overflow: hidden;
       background-color: white;
+      border: 1px solid #e4e3e3;
       border-radius: 6px;
+    }
+  }
+}
+
+.result {
+  .image {
+    height: 224px;
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    > * {
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    .header {
+      display: flex;
+      flex: 25% 0 0;
+      flex-direction: row;
+      align-items: center;
+
+      .title-container {
+        .title {
+          margin-bottom: 4px;
+          color: black;
+          font-size: 1.25em;
+          font-weight: bold;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        .location {
+          font-size: 0.9em;
+        }
+      }
+
+      .availability {
+        margin-left: auto;
+        font-size: 0.9em;
+      }
+    }
+
+    .key-facts {
+      display: flex;
+      flex: 30% 0 0;
+      flex-direction: row;
+      flex-wrap: wrap;
+      flex-flow: row wrap;
+      margin: 0;
+      border-top: 1px solid #efefef;
+      border-bottom: 1px solid #efefef;
+
+      li {
+        flex-basis: 25%;
+        padding: 5px 0;
+        list-style: none;
+        font-size: 0.8em;
+        font-weight: bold;
+      }
+    }
+
+    .features {
+      display: flex;
+      flex: 20% 0 0;
+      flex-direction: row;
+      flex-wrap: wrap;
+      flex-flow: row wrap;
+      height: 38px;
+      padding-top: 5px;
+      font-size: 0.8em;
+      color: #7d807c;
+
+      .separator {
+        margin: 0 10px;
+      }
+    }
+
+    .price-container {
+      display: flex;
+      flex: 25% 0 0;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      height: 56px;
+      background-color: #bef9f9;
+
+      .price {
+        margin-right: 15px;
+        text-align: right;
+
+        .label {
+          margin-bottom: 4px;
+          font-size: 0.9em;
+
+          .amount {
+            font-size: 1.3em;
+            font-weight: bold;
+          }
+        }
+
+        .price-explanation {
+          font-size: 0.75em;
+        }
+      }
+
+      .cta {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding: 0 15px;
+        color: black;
+        font-size: 0.9em;
+        font-weight: bold;
+        text-decoration: none;
+        background-color: #50ff7d;
+        border-radius: 6px;
+        transition: background-color 0.5s ease;
+      
+        &:hover {
+          background-color: #3cb962;
+        }
+      }
     }
   }
 }
