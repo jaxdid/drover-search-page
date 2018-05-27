@@ -11,14 +11,11 @@ body {
   margin: 0 auto;
   max-width: 1140px;
 
-  > * {
-    padding: 0 15px;
-  }
-
   .filters {
     display: flex;
     flex: 1 0 0;
     flex-direction: column;
+    padding-right: 30px;
     padding-bottom: 40px;
 
     .filter-location,
@@ -52,16 +49,18 @@ body {
 
 .result {
   .image {
-    height: 224px;
+    flex: 35% 0 0;
+    background-size: auto 100%;
+    background-position-x: 50%;
   }
 
   .details {
+    flex: 65% 0 0;
     display: flex;
     flex-direction: column;
-    width: 100%;
 
     > * {
-      padding: 0 20px;
+      padding: 0 15px;
       box-sizing: border-box;
     }
 
@@ -73,9 +72,8 @@ body {
 
       .title-container {
         .title {
-          margin-bottom: 4px;
           color: black;
-          font-size: 1.25em;
+          font-size: 1.225em;
           font-weight: bold;
           text-decoration: none;
 
@@ -85,13 +83,14 @@ body {
         }
 
         .location {
-          font-size: 0.9em;
+          margin-top: 4px;
+          font-size: 0.85em;
         }
       }
 
       .availability {
         margin-left: auto;
-        font-size: 0.9em;
+        font-size: 0.85em;
       }
     }
 
@@ -126,7 +125,7 @@ body {
       color: #7d807c;
 
       .separator {
-        margin: 0 10px;
+        margin: 0 6px;
       }
     }
 

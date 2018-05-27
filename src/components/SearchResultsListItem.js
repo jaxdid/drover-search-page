@@ -20,12 +20,16 @@ function SearchResultsListItem ({ data }) {
     price_discount_and_deposit_schedule_hash: prices,
     id
   } = data
-  const { main_image_url: imageUrl, description } = _getMainImage(images)
+  const { main_image_url: imageUrl } = _getMainImage(images)
   const carDetailsUrl = _getCarDetailsUrl(vehicleMake, vehicleModel, id)
 
   return (
     <div className="result">
-      <img className="image" src={imageUrl} alt={description} />
+      <a
+        className="image"
+        href={carDetailsUrl}
+        style={{ backgroundImage: `url(${imageUrl})` }}
+      />
       <div className="details">
         <div className="header">
           <div className="title-container">
