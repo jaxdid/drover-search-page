@@ -5,7 +5,7 @@ import DropdownFilter from './DropdownFilter'
 function SearchFiltersListItem ({ filterName, filterData, updateResults }) {
   return (
     <label className="filter">
-      <h4>{filterData.label}</h4>
+      <div className="label-text">{filterData.label}</div>
       {!filterData.options
         ? _renderLocationInput(filterName, filterData, updateResults)
         : _renderDropdownFilter(filterName, filterData, updateResults)}

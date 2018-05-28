@@ -4,9 +4,9 @@ import SearchResultsListItem from './SearchResultsListItem'
 function SearchResultsList ({ results, resultsTotal, locationSearched }) {
   return (
     <div className="results">
-      <h3>
+      <div className="results-count">
         {`${resultsTotal} VEHICLES FOUND NEAR ${locationSearched.toUpperCase()}`}
-      </h3>
+      </div>
       {_renderResults(results)}
     </div>
   )
