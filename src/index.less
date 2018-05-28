@@ -24,27 +24,36 @@ body {
     }
   }
 
-  .results {
+  .results-container {
     display: flex;
     flex: 3 0 0;
     flex-direction: column;
   
-    .results-count {
-      margin-bottom: 8px;
-      margin-top: 1em;
-      font-size: 1.17em;
-      font-weight: bold;
+    .results {
+      display: flex;
+      flex-direction: column;
+
+      .results-count {
+        margin-bottom: 8px;
+        margin-top: 1em;
+        font-size: 1.17em;
+        font-weight: bold;
+      }
+
+      .result {
+        display: flex;
+        flex-direction: row;
+        height: 224px;
+        margin-bottom: 15px;
+        overflow: hidden;
+        background-color: white;
+        border: 1px solid #e4e3e3;
+        border-radius: 6px;
+      }
     }
 
-    .result {
-      display: flex;
-      flex-direction: row;
-      height: 224px;
-      margin-bottom: 15px;
-      overflow: hidden;
-      background-color: white;
-      border: 1px solid #e4e3e3;
-      border-radius: 6px;
+    .pages {
+      
     }
   }
 }

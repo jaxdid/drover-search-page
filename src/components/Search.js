@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import SearchFiltersList from './SearchFiltersList'
 import SearchResultsList from './SearchResultsList'
+import SearchResultsPageSelector from './SearchResultsPageSelector'
 import fetchSearchResults from '../../lib/api'
 import {
   getDefaultQuery,
@@ -16,7 +17,8 @@ class Search extends Component {
       query: getDefaultQuery(),
       filters: getBaseFilterSettings(),
       results: [],
-      resultsTotal: 0
+      resultsTotal: 0,
+      currentPage: 1
     }
 
     this.updateResults = debounce(this.updateResults.bind(this), 300)
@@ -47,7 +49,8 @@ class Search extends Component {
         this.setState({
           filters,
           results,
-          resultsTotal: metadata.total_count
+          resultsTotal: metadata.total_count,
+          currentPage: metadata.page
         })
       })
   }
@@ -67,11 +70,19 @@ class Search extends Component {
           filters={this.state.filters}
           updateResults={(filter, newValue) => this.updateResults(filter, newValue)}
         />
-        <SearchResultsList
-          results={this.state.results}
-          resultsTotal={this.state.resultsTotal}
-          locationSearched={this.state.query.location}
-        />
+        <div className="results-container">
+          <SearchResultsList
+            results={this.state.results}
+            resultsTotal={this.state.resultsTotal}
+            locationSearched={this.state.query.location}
+          />
+          <SearchResultsPageSelector
+            resultsTotal={this.state.resultsTotal}
+            currentPage={this.state.currentPage}
+            resultsPerPage={this.state.query.per_page}
+            updateResults={(filter, newValue) => this.updateResults(filter, newValue)}
+          />
+        </div>
       </div>
     )
   }
