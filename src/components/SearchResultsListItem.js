@@ -127,9 +127,9 @@ function _renderFeatures (features) {
       .join(' ')
 
     return (
-      <Fragment>
+      <Fragment key={index}>
         {index !== 0 ? <div className="separator">•</div> : ''}
-        <div className="feature" key={index}>{parsedFeature}</div>
+        <div className="feature">{parsedFeature}</div>
       </Fragment>
     )
   })
