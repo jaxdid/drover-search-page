@@ -64,6 +64,8 @@ class Search extends Component {
   }
 
   render () {
+    console.log('current (query): ', this.state.query.page)
+    console.log('current: ', this.state.currentPage)
     return (
       <div className="search">
         <SearchFiltersList
@@ -76,12 +78,15 @@ class Search extends Component {
             resultsTotal={this.state.resultsTotal}
             locationSearched={this.state.query.location}
           />
-          <SearchResultsPageSelector
-            resultsTotal={this.state.resultsTotal}
-            currentPage={this.state.currentPage}
-            resultsPerPage={this.state.query.per_page}
-            updateResults={(filter, newValue) => this.updateResults(filter, newValue)}
-          />
+          {this.state.resultsTotal
+            ? <SearchResultsPageSelector
+              resultsTotal={this.state.resultsTotal}
+              currentPage={this.state.currentPage}
+              resultsPerPage={this.state.query.per_page}
+              updateResults={(filter, newValue) => this.updateResults(filter, newValue)}
+            />
+            : ''
+          }
         </div>
       </div>
     )

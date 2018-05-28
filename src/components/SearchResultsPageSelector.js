@@ -1,42 +1,76 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-function SearchResultsPageSelector ({ resultsTotal, currentPage, resultsPerPage, updateResults }) {
-  return (
-    <div className="pages">
-      <div className="summary">
-        {_getSummary(resultsTotal, currentPage, resultsPerPage)}
+class SearchResultsPageSelector extends Component {
+  constructor (props) {
+    super(props)
+
+    const {
+      resultsTotal,
+      resultsPerPage,
+      currentPage
+    } = this.props
+    const numberedButtonsCount = Math.ceil(resultsTotal / resultsPerPage)
+    const numberedButtons = _getNumberedButtons(numberedButtonsCount)
+
+    this.state = {
+      buttons: [
+        {
+          label: '«',
+          pageNumber: 1
+        },
+        {
+          label: '‹',
+          className: 'previous-page',
+          pageNumber: currentPage - 1
+        },
+        ...numberedButtons,
+        {
+          label: '›',
+          className: 'next-page',
+          pageNumber: currentPage + 1
+        },
+        {
+          label: '»',
+          pageNumber: numberedButtonsCount
+        }
+      ]
+    }
+  }
+
+  renderButtons () {
+    return this.state.buttons.map(({ className, pageNumber, label }) => {
+      return (
+        <a
+          className={`page-button ${className} ${this.props.currentPage === pageNumber ? 'selected' : ''}`}
+          href="#"
+          onClick={() => this.props.updateResults('page', pageNumber)}
+        >
+          {label}
+        </a>
+      )
+    })
+  }
+
+  render () {
+    return (
+      <div className="pages">
+        <div className="summary">
+          {_getSummary(this.props.resultsTotal, this.props.currentPage, this.props.resultsPerPage)}
+        </div>
+        {this.renderButtons()}
       </div>
-      <a
-        className="first-page"
-        href="#"
-        onClick={event => updateResults('page', 1)}
-      >
-        {'<<'}
-      </a>
-      <a
-        className="previous-page"
-        href="#"
-        onClick={event => updateResults('page', currentPage - 1)}
-      >
-        {'<'}
-      </a>
-      {_renderPageButtons(resultsTotal, currentPage, resultsPerPage, updateResults)}
-      <a
-        className="next-page"
-        href="#"
-        onClick={event => updateResults('page', currentPage + 1)}
-      >
-        {'>'}
-      </a>
-      <a
-        className="last-page"
-        href="#"
-        onClick={event => updateResults('page', Math.ceil(resultsTotal / resultsPerPage))}
-      >
-        {'>>'}
-      </a>
-    </div>
-  )
+    )
+  }
+}
+
+function _getNumberedButtons (count) {
+  return [...Array(count).keys()].map(index => {
+    const pageNumber = index + 1
+    return {
+      label: pageNumber,
+      pageNumber
+    }
+  })
 }
 
 function _getSummary (resultsTotal, currentPage, resultsPerPage) {
@@ -44,23 +78,6 @@ function _getSummary (resultsTotal, currentPage, resultsPerPage) {
   const rangeEnd = (rangeStart + resultsPerPage) - 1
 
   return `Showing ${rangeStart}-${Math.min(rangeEnd, resultsTotal)} of ${resultsTotal} results`
-}
-
-function _renderPageButtons (resultsTotal, currentPage, resultsPerPage, updateResults) {
-  const pagesCount = Math.ceil(resultsTotal / resultsPerPage)
-  const pageButtonLabels = [...Array(pagesCount).keys()].map(key => key + 1)
-
-  return pageButtonLabels.map(pageButtonLabel => {
-    return (
-      <a
-        className="page-button"
-        href="#"
-        onClick={event => updateResults('page', pageButtonLabel)}
-      >
-        {pageButtonLabel}
-      </a>
-    )
-  })
 }
 
 export default SearchResultsPageSelector
