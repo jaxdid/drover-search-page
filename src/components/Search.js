@@ -25,11 +25,17 @@ class Search extends Component {
   }
 
   componentDidMount () {
-    this.runSearch()
+    this.updateResults()
   }
 
-  runSearch () {
-    fetchSearchResults(this.state.query)
+  updateResults (filter, newValue) {
+    const query = this.state.query
+
+    if (filter && newValue) {
+      query[filter] = newValue
+    }
+
+    fetchSearchResults(query)
       .then(({ metadata, data: results }) => {
         const {
           vehicle_make: vehicleMake,
@@ -47,6 +53,7 @@ class Search extends Component {
         filters.tags.options = tags
 
         this.setState({
+          query,
           filters,
           results,
           resultsTotal: metadata.total_count,
@@ -55,17 +62,7 @@ class Search extends Component {
       })
   }
 
-  updateResults (filter, newValue) {
-    this.setState(previousState => {
-      const newState = previousState
-      newState.query[filter] = newValue
-      return newState
-    }, this.runSearch)
-  }
-
   render () {
-    console.log('current (query): ', this.state.query.page)
-    console.log('current: ', this.state.currentPage)
     return (
       <div className="search">
         <SearchFiltersList
