@@ -37,7 +37,7 @@ function SearchResultsListItem ({ data }) {
             <div className="location">{`Located in ${postcode.split(' ')[0]}`}</div>
           </div>
           <div className="availability">
-            {`Available from ${availabilityDate}`}
+            {`Available from ${_getAvailabilityDateString(availabilityDate)}`}
           </div>
         </div>
         <ul className="key-facts">
@@ -72,12 +72,52 @@ function _getMainImage (images) {
   return images.filter(image => image.position === 0)[0]
 }
 
-function _getPrice (prices) {
-  return prices[12].driver_price_pounds_after_discount_including_insurance
+function _getAvailabilityDateString (availabilityDate) {
+  const [ year, twoDigitMonth, twoDigitDate ] = availabilityDate.split('-')
+  const date = twoDigitDate.replace(/^0/, '')
+  const months = {
+    '01': 'January',
+    '02': 'February',
+    '03': 'March',
+    '04': 'April',
+    '05': 'May',
+    '06': 'June',
+    '07': 'July',
+    '08': 'August',
+    '09': 'September',
+    '10': 'October',
+    '11': 'November',
+    '12': 'December'
+  }
+
+  return `${date}${_getDateDecoration(date)} ${months[twoDigitMonth]} ${year}`
+}
+
+function _getDateDecoration (date) {
+  const dateInteger = Number(date)
+
+  if (dateInteger > 3 && dateInteger < 21) {
+    return 'th'
+  }
+
+  switch (dateInteger % 10) {
+    case 1:
+      return 'st'
+    case 2:
+      return 'nd'
+    case 3:
+      return 'rd'
+    default:
+      return 'th'
+  }
 }
 
 function _getCarDetailsUrl (vehicleMake, vehicleModel, id) {
   return `https://www.joindrover.com/cars/${vehicleMake}/${encodeURI(vehicleModel)}/${id}`
+}
+
+function _getPrice (prices) {
+  return prices[12].driver_price_pounds_after_discount_including_insurance
 }
 
 function _renderFeatures (features) {
