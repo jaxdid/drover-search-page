@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types'
 import { convertValueForApi, capitalize } from '../../lib/utils'
 
 class DropdownFilter extends Component {
@@ -58,6 +59,12 @@ function _renderVariableOptions (options) {
       })}
     </Fragment>
   )
+}
+
+DropdownFilter.propTypes = {
+  filterData: PropTypes.object.isRequired,
+  filterName: PropTypes.string.isRequired,
+  updateResults: PropTypes.func.isRequired
 }
 
 export default DropdownFilter

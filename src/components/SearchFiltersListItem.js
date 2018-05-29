@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import LocationInput from './LocationInput'
 import DropdownFilter from './DropdownFilter'
 
@@ -11,6 +12,12 @@ function SearchFiltersListItem ({ filterName, filterData, updateResults }) {
         : _renderDropdownFilter(filterName, filterData, updateResults)}
     </label>
   )
+}
+
+SearchFiltersListItem.propTypes = {
+  filterName: PropTypes.string.isRequired,
+  filterData: PropTypes.object.isRequired,
+  updateResults: PropTypes.func.isRequired
 }
 
 function _renderLocationInput (filterName, filterData, updateResults) {

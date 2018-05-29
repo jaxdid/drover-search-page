@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import SearchResultsListItem from './SearchResultsListItem'
 
 function SearchResultsList ({ results, resultsTotal, locationSearched }) {
@@ -10,6 +11,12 @@ function SearchResultsList ({ results, resultsTotal, locationSearched }) {
       {_renderResults(results)}
     </div>
   )
+}
+
+SearchResultsList.propTypes = {
+  results: PropTypes.array.isRequired,
+  resultsTotal: PropTypes.number.isRequired,
+  locationSearched: PropTypes.string.isRequired
 }
 
 function _renderResults (results) {

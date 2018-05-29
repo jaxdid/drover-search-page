@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class SearchResultsPageSelector extends Component {
   constructor (props) {
@@ -63,6 +64,13 @@ class SearchResultsPageSelector extends Component {
       </div>
     )
   }
+}
+
+SearchResultsPageSelector.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  updateResults: PropTypes.func.isRequired,
+  resultsTotal: PropTypes.number.isRequired,
+  resultsPerPage: PropTypes.number.isRequired
 }
 
 function _getNumberedButtons (count) {

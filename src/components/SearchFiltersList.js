@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import SearchFiltersListItem from './SearchFiltersListItem'
 
 function SearchFiltersList ({ filters, updateResults }) {
@@ -20,6 +21,11 @@ function _renderFilters (filters, updateResults) {
       />
     )
   })
+}
+
+SearchFiltersList.propTypes = {
+  filters: PropTypes.object.isRequired,
+  updateResults: PropTypes.func.isRequired
 }
 
 export default SearchFiltersList

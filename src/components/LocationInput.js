@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class LocationInput extends Component {
   constructor (props) {
@@ -30,6 +31,12 @@ class LocationInput extends Component {
       />
     )
   }
+}
+
+LocationInput.propTypes = {
+  filterData: PropTypes.object.isRequired,
+  filterName: PropTypes.string.isRequired,
+  updateResults: PropTypes.func.isRequired
 }
 
 export default LocationInput

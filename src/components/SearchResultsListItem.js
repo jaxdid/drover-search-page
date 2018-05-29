@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
 import { capitalize } from '../../lib/utils'
 
 function SearchResultsListItem ({ data }) {
@@ -66,6 +67,10 @@ function SearchResultsListItem ({ data }) {
       </div>
     </div>
   )
+}
+
+SearchResultsListItem.propTypes = {
+  data: PropTypes.object.isRequired
 }
 
 function _getMainImage (images) {
