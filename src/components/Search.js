@@ -5,6 +5,7 @@ import SearchResultsPageSelector from './SearchResultsPageSelector'
 import fetchSearchResults from '../../lib/api'
 import {
   getDefaultQuery,
+  getUpdatedQuery,
   getBaseFilterSettings,
   debounce
 } from '../../lib/utils'
@@ -28,12 +29,10 @@ class Search extends Component {
     this.updateResults()
   }
 
-  updateResults (filter, newValue) {
-    const query = this.state.query
-
-    if (filter && newValue) {
-      query[filter] = newValue
-    }
+  updateResults (updatedFilter, newValue) {
+    const query = updatedFilter && newValue
+      ? getUpdatedQuery(this.state.query, updatedFilter, newValue)
+      : this.state.query
 
     fetchSearchResults(query)
       .then(({ metadata, data: results }) => {
@@ -57,29 +56,37 @@ class Search extends Component {
           filters,
           results,
           resultsTotal: metadata.total_count,
-          currentPage: filter === 'page' ? metadata.page : 1
+          currentPage: updatedFilter === 'page' ? metadata.page : 1
         })
       })
   }
 
   render () {
+    const {
+      filters,
+      results,
+      resultsTotal,
+      query,
+      currentPage
+    } = this.state
+
     return (
       <div className="search">
         <SearchFiltersList
-          filters={this.state.filters}
+          filters={filters}
           updateResults={(filter, newValue) => this.updateResults(filter, newValue)}
         />
         <div className="results-container">
           <SearchResultsList
-            results={this.state.results}
-            resultsTotal={this.state.resultsTotal}
-            locationSearched={this.state.query.location}
+            results={results}
+            resultsTotal={resultsTotal}
+            locationSearched={query.location}
           />
-          {this.state.resultsTotal
+          {resultsTotal
             ? <SearchResultsPageSelector
-              resultsTotal={this.state.resultsTotal}
-              currentPage={this.state.currentPage}
-              resultsPerPage={this.state.query.per_page}
+              resultsTotal={resultsTotal}
+              currentPage={currentPage}
+              resultsPerPage={query.per_page}
               updateResults={(filter, newValue) => this.updateResults(filter, newValue)}
             />
             : ''

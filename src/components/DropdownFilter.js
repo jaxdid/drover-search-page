@@ -48,7 +48,7 @@ function _renderStaticOptions (options) {
 function _renderVariableOptions (options) {
   return (
     <Fragment>
-      <option value="">Any</option>
+      <option value="*">Any</option>
       {Object.entries(options).map(([ value, quantity ], index) => {
         return (
           <option key={index} value={value}>
