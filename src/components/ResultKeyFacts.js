@@ -13,15 +13,19 @@ function ResultKeyFacts (props) {
     color
   } = props
 
+  const keyFacts = [
+    {className: 'year', value: year},
+    {className: 'body-type', value: bodyType},
+    {className: 'transmission', value: transmission},
+    {className: 'fuel', value: fuel},
+    {className: 'number-seats', value: numberSeats},
+    {className: 'number-doors', value: numberDoors},
+    {className: 'color', value: color}
+  ]
+
   return (
     <ul className="key-facts">
-      <li className="year">{year}</li>
-      <li className="body-type">{capitalize(bodyType)}</li>
-      <li className="transmission">{capitalize(transmission)}</li>
-      <li className="fuel">{capitalize(fuel)}</li>
-      <li className="number-seats">{`${numberSeats} Seats`}</li>
-      <li className="number-doors">{`${numberDoors} Doors`}</li>
-      <li className="color">{capitalize(color)}</li>
+      {_renderKeyFacts(keyFacts)}
     </ul>
   )
 }
@@ -34,6 +38,14 @@ ResultKeyFacts.propTypes = {
   numberSeats: PropTypes.string,
   numberDoors: PropTypes.string,
   color: PropTypes.string
+}
+
+function _renderKeyFacts (keyFacts) {
+  return keyFacts.map(({ className, value }) => {
+    if (value) {
+      return <li className={className}>{capitalize(String(value))}</li>
+    }
+  })
 }
 
 export default ResultKeyFacts

@@ -15,7 +15,9 @@ function ResultHeadline (props) {
   return (
     <div className="header">
       <div className="title-container">
-        <a className="title" href={carDetailsUrl}>{`${vehicleMake} ${capitalize(vehicleModel)} ${engineSize}L`}</a>
+        <a className="title" href={carDetailsUrl}>
+          {_getTitle(vehicleMake, vehicleModel, engineSize)}
+        </a>
         <div className="location">{`Located in ${postcode.split(' ')[0]}`}</div>
       </div>
       <div className="availability">
@@ -32,6 +34,12 @@ ResultHeadline.propTypes = {
   engineSize: PropTypes.string,
   postcode: PropTypes.string,
   availabilityDate: PropTypes.string
+}
+
+function _getTitle (vehicleMake, vehicleModel, engineSize) {
+  const baseTitle = `${vehicleMake} ${capitalize(vehicleModel)}`
+  const engineSizeLabel = engineSize ? ` ${engineSize}L` : ''
+  return `${baseTitle}${engineSizeLabel}`
 }
 
 function _getAvailabilityDateString (availabilityDate) {
