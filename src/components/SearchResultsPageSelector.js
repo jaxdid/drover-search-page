@@ -4,15 +4,16 @@ class SearchResultsPageSelector extends Component {
   constructor (props) {
     super(props)
 
-    const {
-      resultsTotal,
-      resultsPerPage,
-      currentPage
-    } = this.props
+    this.state = {
+      buttons: []
+    }
+  }
+
+  static getDerivedStateFromProps ({ resultsTotal, resultsPerPage, currentPage }) {
     const numberedButtonsCount = Math.ceil(resultsTotal / resultsPerPage)
     const numberedButtons = _getNumberedButtons(numberedButtonsCount)
 
-    this.state = {
+    return {
       buttons: [
         {
           label: '«',
@@ -38,12 +39,13 @@ class SearchResultsPageSelector extends Component {
   }
 
   renderButtons () {
-    return this.state.buttons.map(({ className, pageNumber, label }) => {
+    return this.state.buttons.map(({ className, pageNumber, label }, index) => {
       return (
         <a
-          className={`page-button ${className} ${this.props.currentPage === pageNumber ? 'selected' : ''}`}
+          className={_getButtonClasses(className, pageNumber, this.props.currentPage)}
           href="#"
           onClick={() => this.props.updateResults('page', pageNumber)}
+          key={index}
         >
           {label}
         </a>
@@ -68,9 +70,19 @@ function _getNumberedButtons (count) {
     const pageNumber = index + 1
     return {
       label: pageNumber,
-      pageNumber
+      pageNumber,
+      className: 'numbered-page'
     }
   })
+}
+
+function _getButtonClasses (className, pageNumber, currentPage) {
+  if (!className) {
+    return 'page-button'
+  }
+
+  const isSelected = className === 'numbered-page' && currentPage === pageNumber
+  return `page-button ${className} ${isSelected ? 'selected' : ''}`
 }
 
 function _getSummary (resultsTotal, currentPage, resultsPerPage) {

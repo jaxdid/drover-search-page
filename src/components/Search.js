@@ -57,7 +57,7 @@ class Search extends Component {
           filters,
           results,
           resultsTotal: metadata.total_count,
-          currentPage: metadata.page
+          currentPage: filter === 'page' ? metadata.page : 1
         })
       })
   }
